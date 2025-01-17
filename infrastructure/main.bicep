@@ -81,18 +81,31 @@ resource webApp 'Microsoft.Web/sites@2021-02-01' = {
     siteConfig: {
       linuxFxVersion: 'PYTHON|3.12'
       alwaysOn: true
+      vnetRouteAllEnabled: true
       appSettings: [
         {
           name: 'USE_MANAGED_IDENTITY'
           value: 'true'
         }
         {
+          name: 'WEBSITE_VNET_ROUTE_ALL'
+          value: '1'
+        }
+        {
+          name: 'WEBSITE_DNS_SERVER'
+          value: '168.63.129.16'
+        }
+        {
           name: 'AZURE_OPENAI_ENDPOINT'
-          value: 'https://${aiServiceName}.openai.azure.com/'
+          value: 'https://${aiServiceName}.cognitiveservices.azure.com/'
+        }
+        {
+          name: 'AZURE_OPENAI_DEPLOYMENT'
+          value: 'gpt-4-mini'
         }
       ]
     }
-    virtualNetworkSubnetId: vnet.properties.subnets[1].id // Subnetz für App Service
+    virtualNetworkSubnetId: vnet.properties.subnets[1].id
   }
 }
 
