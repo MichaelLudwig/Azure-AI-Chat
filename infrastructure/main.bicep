@@ -130,7 +130,7 @@ resource privateEndpoint 'Microsoft.Network/privateEndpoints@2023-02-01' = {
 
 // Private DNS Zone erstellen
 resource privateDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
-  name: 'privatelink.openai.azure.com'
+  name: 'privatelink.cognitiveservices.azure.com'
   location: 'global'
   properties: {}
 }
