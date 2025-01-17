@@ -32,3 +32,15 @@ AZURE_CREDENTIALS = siehe oben
 AZURE_APP_CREDENTIALS = siehe oben
 AZURE_RG = test-azure-ai-chat
 AZURE_SUBSCRIPTION = a79ce721-b590-4c49-8b65-35face434b79
+
+## Infrastruktur Deployment in GitHub Actions 
+
+GitHub Action 'Deploy Azure Infrastructure' starten
+
+## App Deployment in GitHub Actions
+
+in app-deploy.yml die App-Name anpassen
+in main.py azure_endpoint anpassen
+
+GitHub Action 'Deploy Azure App' starten
+
