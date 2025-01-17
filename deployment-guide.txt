@@ -54,4 +54,9 @@ in main.py azure_endpoint anpassen
 
 GitHub Action 'Deploy Azure App' starten
 
+# Prüfen Sie den Status des Private Endpoints
+   az network private-endpoint show --name ai-service-test2-azure-ai-chat-pe --resource-group test2-azure-ai-chat
+   
+   # Prüfen Sie die DNS-Einträge
+   az network private-dns record-set a list --zone-name privatelink.openai.azure.com --resource-group test2-azure-ai-chat
 

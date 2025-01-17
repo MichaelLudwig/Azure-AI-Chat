@@ -85,6 +85,10 @@ resource webApp 'Microsoft.Web/sites@2021-02-01' = {
         {
           name: 'USE_MANAGED_IDENTITY'
           value: 'true'
+        },
+        {
+          name: 'AZURE_OPENAI_ENDPOINT'
+          value: 'https://${aiServiceName}.openai.azure.com/'
         }
       ]
     }
@@ -145,15 +149,32 @@ resource privateEndpoint 'Microsoft.Network/privateEndpoints@2023-02-01' = {
   }
 }
 
-// Private DNS Zone erstellen
-resource privateDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
-  name: 'privatelink.cognitiveservices.azure.com'
+// Private DNS Zones erstellen
+resource privateDnsZoneOpenAI 'Microsoft.Network/privateDnsZones@2020-06-01' = {
+  name: 'privatelink.openai.azure.com'
   location: 'global'
 }
 
-// DNS-Zonenlink mit VNet verbinden
-resource dnsZoneLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
-  parent: privateDnsZone
+resource privateDnsZoneAI 'Microsoft.Network/privateDnsZones@2020-06-01' = {
+  name: 'privatelink.services.ai.azure.com'
+  location: 'global'
+}
+
+// DNS-Zonenlinks mit VNet verbinden
+resource dnsZoneLinkOpenAI 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
+  parent: privateDnsZoneOpenAI
+  name: '${vnetName}-dns-link'
+  location: 'global'
+  properties: {
+    virtualNetwork: {
+      id: vnet.id
+    }
+    registrationEnabled: false
+  }
+}
+
+resource dnsZoneLinkAI 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
+  parent: privateDnsZoneAI
   name: '${vnetName}-dns-link'
   location: 'global'
   properties: {
@@ -171,17 +192,24 @@ resource privateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneG
   properties: {
     privateDnsZoneConfigs: [
       {
-        name: 'privatelink-cognitiveservices'
+        name: 'privatelink-openai'
         properties: {
-          privateDnsZoneId: privateDnsZone.id
+          privateDnsZoneId: privateDnsZoneOpenAI.id
+        }
+      }
+      {
+        name: 'privatelink-ai'
+        properties: {
+          privateDnsZoneId: privateDnsZoneAI.id
         }
       }
     ]
   }
   dependsOn: [
-    dnsZoneLink
+    dnsZoneLinkOpenAI
+    dnsZoneLinkAI
   ]
-} 
+}
 
 // RBAC-Zuweisung für Web App zur Azure OpenAI-Nutzung
 resource openAIRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
