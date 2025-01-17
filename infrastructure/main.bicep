@@ -120,6 +120,7 @@ resource gpt4Deployment 'Microsoft.CognitiveServices/accounts/deployments@2024-1
       name: 'gpt-4o-mini'
       version: '2024-07-18'
     }
+    raiPolicyName: 'Microsoft.Default'
   }
 }
 
