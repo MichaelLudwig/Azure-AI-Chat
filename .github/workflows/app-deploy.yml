@@ -35,7 +35,8 @@ jobs:
         with:
           app-name: 'app-test-azure-ai-chat' 
           package: .
+          startup-command: '/bin/bash startup.sh'
           
       - name: Show Deployment URL
         run: |
-          echo "Die App wurde deployed und ist verfügbar unter: https://app-ai-chat.azurewebsites.net" 
+          echo "Die App wurde deployed und ist verfügbar unter: https://app-test-azure-ai-chat.azurewebsites.net" 
