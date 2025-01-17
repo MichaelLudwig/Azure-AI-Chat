@@ -102,7 +102,24 @@ resource aiService 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
   }
   properties: {
     customSubDomainName: aiServiceName
-    publicNetworkAccess: 'Disabled' // Verhindert öffentlichen Zugriff
+    publicNetworkAccess: 'Disabled'
+  }
+}
+
+// GPT-4 Modell Deployment
+resource gpt4Deployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
+  parent: aiService
+  name: 'gpt-4-mini'
+  sku: {
+    name: 'Standard'
+    capacity: 1
+  }
+  properties: {
+    model: {
+      format: 'OpenAI'
+      name: 'gpt-4'
+      version: '1106-Preview'
+    }
   }
 }
 
