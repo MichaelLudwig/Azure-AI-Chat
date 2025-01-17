@@ -132,7 +132,6 @@ resource privateEndpoint 'Microsoft.Network/privateEndpoints@2023-02-01' = {
 resource privateDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
   name: 'privatelink.cognitiveservices.azure.com'
   location: 'global'
-  properties: {}
 }
 
 // DNS-Zonenlink mit VNet verbinden
@@ -155,13 +154,16 @@ resource privateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneG
   properties: {
     privateDnsZoneConfigs: [
       {
-        name: 'config'
+        name: 'privatelink-cognitiveservices'
         properties: {
           privateDnsZoneId: privateDnsZone.id
         }
       }
     ]
   }
+  dependsOn: [
+    dnsZoneLink
+  ]
 }
 
 // RBAC-Zuweisung für Web App zur Azure OpenAI-Nutzung
