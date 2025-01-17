@@ -120,7 +120,11 @@ resource aiService 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
   properties: {
     customSubDomainName: aiServiceName
     publicNetworkAccess: 'Enabled'
-    //publicNetworkAccess: 'Disabled'
+    networkAcls: {
+      defaultAction: 'Allow'
+      virtualNetworkRules: []
+      ipRules: []
+    }
   }
 }
 
