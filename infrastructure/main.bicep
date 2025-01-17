@@ -127,7 +127,7 @@ resource gpt4Deployment 'Microsoft.CognitiveServices/accounts/deployments@2024-1
   }
 }
 
-// Private Endpoint für Azure OpenAI Service erstellen
+// Private Endpoint für Azure OpenAI Service
 resource privateEndpoint 'Microsoft.Network/privateEndpoints@2023-02-01' = {
   name: '${aiServiceName}-pe'
   location: location
@@ -187,13 +187,13 @@ resource privateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneG
   ]
 }
 
-// RBAC-Zuweisung für Web App zur Azure OpenAI-Nutzung
+// RBAC-Zuweisung
 resource openAIRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(webApp.id, aiService.id, 'Cognitive Services User')
   scope: aiService
   properties: {
     principalId: webApp.identity.principalId
-    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '5e0bd9bd-7b93-4f28-af87-19fc36ad61bd') // Cognitive Services User
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '5e0bd9bd-7b93-4f28-af87-19fc36ad61bd')
     principalType: 'ServicePrincipal'
   }
 }
