@@ -179,9 +179,6 @@ resource privateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneG
       }
     ]
   }
-  dependsOn: [
-    dnsZoneLink
-  ]
 }
 
 // RBAC-Zuweisung
