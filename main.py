@@ -26,7 +26,7 @@ else:
     client = openai.AzureOpenAI(
         api_key=os.getenv('AZURE_OPENAI_API_KEY'),
         api_version="2024-04-01-preview",
-        azure_endpoint="https://ai-service-test2-azure-ai-chat.openai.azure.com/"
+        azure_endpoint="https://ai-service-test2-azure-ai-chat.privatelink.openai.azure.com/"
     )
 openAI_model = "gpt-4o-mini"
 
