@@ -44,3 +44,4 @@ in main.py azure_endpoint anpassen
 
 GitHub Action 'Deploy Azure App' starten
 
+az cognitiveservices account list-skus --name ai-service-test2-azure-ai-chat --resource-group test2-azure-ai-chat

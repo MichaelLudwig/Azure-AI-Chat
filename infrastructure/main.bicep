@@ -117,8 +117,8 @@ resource gpt4Deployment 'Microsoft.CognitiveServices/accounts/deployments@2024-1
   properties: {
     model: {
       format: 'OpenAI'
-      name: 'gpt-4'
-      version: '1106-Preview'
+      name: 'gpt-4o-mini'
+      version: '2024-07-18'
     }
   }
 }
