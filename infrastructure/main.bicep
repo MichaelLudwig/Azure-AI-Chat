@@ -81,27 +81,10 @@ resource webApp 'Microsoft.Web/sites@2021-02-01' = {
     siteConfig: {
       linuxFxVersion: 'PYTHON|3.12'
       alwaysOn: true
-      vnetRouteAllEnabled: true
       appSettings: [
         {
           name: 'USE_MANAGED_IDENTITY'
           value: 'true'
-        }
-        {
-          name: 'WEBSITE_VNET_ROUTE_ALL'
-          value: '1'
-        }
-        {
-          name: 'WEBSITE_DNS_SERVER'
-          value: '168.63.129.16'
-        }
-        {
-          name: 'AZURE_OPENAI_ENDPOINT'
-          value: 'https://${aiServiceName}.openai.azure.com/'
-        }
-        {
-          name: 'AZURE_OPENAI_DEPLOYMENT'
-          value: 'gpt-4-mini'
         }
       ]
     }
@@ -119,12 +102,7 @@ resource aiService 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
   }
   properties: {
     customSubDomainName: aiServiceName
-    publicNetworkAccess: 'Enabled'
-    networkAcls: {
-      defaultAction: 'Allow'
-      virtualNetworkRules: []
-      ipRules: []
-    }
+    publicNetworkAccess: 'Disabled'    
   }
 }
 
@@ -171,6 +149,7 @@ resource privateEndpoint 'Microsoft.Network/privateEndpoints@2023-02-01' = {
 resource privateDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
   name: 'privatelink.cognitiveservices.azure.com'
   location: 'global'
+  properties: {}
 }
 
 // DNS-Zonenlink mit VNet verbinden
@@ -193,7 +172,7 @@ resource privateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneG
   properties: {
     privateDnsZoneConfigs: [
       {
-        name: 'privatelink-cognitiveservices'
+        name: 'config'
         properties: {
           privateDnsZoneId: privateDnsZone.id
         }
