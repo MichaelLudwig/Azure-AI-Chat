@@ -35,6 +35,16 @@ AZURE_SUBSCRIPTION = a79ce721-b590-4c49-8b65-35face434b79
 
 ## Infrastruktur Deployment in GitHub Actions 
 
+Ggebenenfalls vor dem Deployment checken, was die neuster Version des GPT-4 Modells ist, und im main.bicep anpassen.
+
+```
+az cognitiveservices account list-models \
+  --name ai-service-test2-azure-ai-chat \
+  --resource-group test2-azure-ai-chat \
+  --query "[].{Model:name, Version:version}" \
+  --output table
+``` 
+
 GitHub Action 'Deploy Azure Infrastructure' starten
 
 ## App Deployment in GitHub Actions
@@ -44,4 +54,4 @@ in main.py azure_endpoint anpassen
 
 GitHub Action 'Deploy Azure App' starten
 
-az cognitiveservices account list-skus --name ai-service-test2-azure-ai-chat --resource-group test2-azure-ai-chat
+
