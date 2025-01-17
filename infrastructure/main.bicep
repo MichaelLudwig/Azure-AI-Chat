@@ -85,7 +85,7 @@ resource webApp 'Microsoft.Web/sites@2021-02-01' = {
         {
           name: 'USE_MANAGED_IDENTITY'
           value: 'true'
-        },
+        }
         {
           name: 'AZURE_OPENAI_ENDPOINT'
           value: 'https://${aiServiceName}.openai.azure.com/'
