@@ -97,7 +97,7 @@ resource webApp 'Microsoft.Web/sites@2021-02-01' = {
         }
         {
           name: 'AZURE_OPENAI_ENDPOINT'
-          value: 'https://${aiServiceName}.cognitiveservices.azure.com/'
+          value: 'https://${aiServiceName}.openai.azure.com/'
         }
         {
           name: 'AZURE_OPENAI_DEPLOYMENT'
@@ -119,7 +119,8 @@ resource aiService 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
   }
   properties: {
     customSubDomainName: aiServiceName
-    publicNetworkAccess: 'Disabled'
+    publicNetworkAccess: 'Enabled'
+    //publicNetworkAccess: 'Disabled'
   }
 }
 
