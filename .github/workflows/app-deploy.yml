@@ -33,7 +33,7 @@ jobs:
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'app-ai-chat'
+          app-name: 'app-test-azure-ai-chat' 
           package: .
           
       - name: Show Deployment URL
