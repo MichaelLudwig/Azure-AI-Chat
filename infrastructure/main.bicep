@@ -149,32 +149,15 @@ resource privateEndpoint 'Microsoft.Network/privateEndpoints@2023-02-01' = {
   }
 }
 
-// Private DNS Zones erstellen
-resource privateDnsZoneOpenAI 'Microsoft.Network/privateDnsZones@2020-06-01' = {
-  name: 'privatelink.openai.azure.com'
+// Private DNS Zone erstellen
+resource privateDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
+  name: 'privatelink.cognitiveservices.azure.com'
   location: 'global'
 }
 
-resource privateDnsZoneAI 'Microsoft.Network/privateDnsZones@2020-06-01' = {
-  name: 'privatelink.services.ai.azure.com'
-  location: 'global'
-}
-
-// DNS-Zonenlinks mit VNet verbinden
-resource dnsZoneLinkOpenAI 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
-  parent: privateDnsZoneOpenAI
-  name: '${vnetName}-dns-link'
-  location: 'global'
-  properties: {
-    virtualNetwork: {
-      id: vnet.id
-    }
-    registrationEnabled: false
-  }
-}
-
-resource dnsZoneLinkAI 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
-  parent: privateDnsZoneAI
+// DNS-Zonenlink mit VNet verbinden
+resource dnsZoneLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
+  parent: privateDnsZone
   name: '${vnetName}-dns-link'
   location: 'global'
   properties: {
@@ -192,22 +175,15 @@ resource privateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneG
   properties: {
     privateDnsZoneConfigs: [
       {
-        name: 'privatelink-openai'
+        name: 'privatelink-cognitiveservices'
         properties: {
-          privateDnsZoneId: privateDnsZoneOpenAI.id
-        }
-      }
-      {
-        name: 'privatelink-ai'
-        properties: {
-          privateDnsZoneId: privateDnsZoneAI.id
+          privateDnsZoneId: privateDnsZone.id
         }
       }
     ]
   }
   dependsOn: [
-    dnsZoneLinkOpenAI
-    dnsZoneLinkAI
+    dnsZoneLink
   ]
 }
 
