@@ -164,7 +164,7 @@ resource privateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneG
   dependsOn: [
     dnsZoneLink
   ]
-}
+} 
 
 // RBAC-Zuweisung für Web App zur Azure OpenAI-Nutzung
 resource openAIRoleAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
