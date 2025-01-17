@@ -81,14 +81,23 @@ resource webApp 'Microsoft.Web/sites@2021-02-01' = {
     siteConfig: {
       linuxFxVersion: 'PYTHON|3.12'
       alwaysOn: true
+      vnetRouteAllEnabled: true
       appSettings: [
         {
           name: 'USE_MANAGED_IDENTITY'
           value: 'true'
         }
+        {
+          name: 'WEBSITE_VNET_ROUTE_ALL'
+          value: '1'
+        }
+        {
+          name: 'WEBSITE_DNS_SERVER'
+          value: '168.63.129.16'
+        }
       ]
     }
-    virtualNetworkSubnetId: vnet.properties.subnets[1].id // Subnetz für App Service
+    virtualNetworkSubnetId: vnet.properties.subnets[1].id
   }
 }
 
