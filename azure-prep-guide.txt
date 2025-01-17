@@ -1,0 +1,34 @@
+## Ressourcengruppe anlegen
+
+```
+az group create --name test-azure-ai-chat --location swedencentral
+```
+
+## Service Prinicipal für Infrastruktur Deployment erstellen
+
+```
+az ad sp create-for-rbac --name "bicep-deployer" --role "Contributor" --scopes /subscriptions/a79ce721-b590-4c49-8b65-35face434b79/resourceGroups/test-azure-ai-chat --sdk-auth
+```
+
+Ergebnis in GitHub Secrets als AZURE_CREDENTIALS hinterlegen
+
+Dem Prinzipal das zusätzliche Recht geben, dem App Service Zugriffsrechte auf den Azure OpenAI Service zu gewähren
+
+```
+az role assignment create --assignee 894c76bb-ef81-4d40-8dc2-7996d90eef23 --role "User Access Administrator" --scope /subscriptions/a79ce721-b590-4c49-8b65-35face434b79/resourceGroups/test-azure-ai-chat
+``` 
+
+## Service Prinicipal für App Deployment erstellen
+
+```
+az ad sp create-for-rbac --name "app-deployer" --role "Website Contributor" --scopes /subscriptions/a79ce721-b590-4c49-8b65-35face434b79/resourceGroups/test-azure-ai-chat --sdk-auth
+```
+
+Ergebnis in GitHub Secrets als AZURE_APP_CREDENTIALS hinterlegen
+
+## GitHub Actions Secrets hinterlegen
+
+AZURE_CREDENTIALS = siehe oben  
+AZURE_APP_CREDENTIALS = siehe oben
+AZURE_RG = test-azure-ai-chat
+AZURE_SUBSCRIPTION = a79ce721-b590-4c49-8b65-35face434b79
