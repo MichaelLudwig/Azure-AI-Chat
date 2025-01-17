@@ -2,16 +2,16 @@
 param location string = resourceGroup().location
 
 @description('Der Name des App Service Plans')
-param appServicePlanName string = 'asp-bcl-reviewer'
+param appServicePlanName string = 'asp-ai-chat'
 
 @description('Der Name der Web App')
-param webAppName string = 'app-bcl-reviewer'
+param webAppName string = 'app-ai-chat'
 
 @description('Der Name des Azure OpenAI Services')
-param aiServiceName string = 'ai-service-bcl-reviewer'
+param aiServiceName string = 'ai-service-ai-chat'
 
 @description('Der Name des VNets')
-param vnetName string = 'vnet-bcl-reviewer'
+param vnetName string = 'vnet-ai-chat'
 
 @description('Das Subnetz für den Private Endpoint')
 param privateEndpointSubnetName string = 'subnet-private-endpoint'

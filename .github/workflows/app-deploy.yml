@@ -33,9 +33,9 @@ jobs:
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'app-bcl-reviewer'
+          app-name: 'app-ai-chat'
           package: .
           
       - name: Show Deployment URL
         run: |
-          echo "Die App wurde deployed und ist verfügbar unter: https://app-bcl-reviewer.azurewebsites.net" 
+          echo "Die App wurde deployed und ist verfügbar unter: https://app-ai-chat.azurewebsites.net" 
