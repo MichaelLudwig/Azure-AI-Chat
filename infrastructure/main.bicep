@@ -102,7 +102,12 @@ resource aiService 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
   }
   properties: {
     customSubDomainName: aiServiceName
-    publicNetworkAccess: 'Disabled'    
+    publicNetworkAccess: 'Disabled'
+    networkAcls: {
+      defaultAction: 'Allow'
+      virtualNetworkRules: []
+      ipRules: []
+    }
   }
 }
 
@@ -166,20 +171,23 @@ resource dnsZoneLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020
   }
 }
 
-// DNS-Zonengruppe für den Private Endpoint
+// DNS-Zonengruppe für den Private Endpoint erstellen
 resource privateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2023-02-01' = {
   parent: privateEndpoint
   name: 'default'
   properties: {
     privateDnsZoneConfigs: [
       {
-        name: 'privatelink-openai'
+        name: 'config'
         properties: {
           privateDnsZoneId: privateDnsZone.id
         }
       }
     ]
   }
+  dependsOn: [
+    dnsZoneLink
+  ]
 }
 
 // RBAC-Zuweisung
