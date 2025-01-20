@@ -15,7 +15,7 @@ Ergebnis in GitHub Secrets als AZURE_CREDENTIALS hinterlegen
 Dem Prinzipal das zusätzliche Recht geben, dem App Service Zugriffsrechte auf den Azure OpenAI Service zu gewähren
 
 ```
-az role assignment create --assignee 894c76bb-ef81-4d40-8dc2-7996d90eef23 --role "User Access Administrator" --scope /subscriptions/a79ce721-b590-4c49-8b65-35face434b79/resourceGroups/test4-azure-ai-chat
+az role assignment create --assignee 0def0389-e79a-4d21-96fa-22079a8c4256 --role "User Access Administrator" --scope /subscriptions/a79ce721-b590-4c49-8b65-35face434b79/resourceGroups/test4-azure-ai-chat
 ``` 
 
 ## Service Prinicipal für App Deployment erstellen
