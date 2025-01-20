@@ -109,7 +109,7 @@ resource aiService 'Microsoft.CognitiveServices/accounts@2024-10-01' = {
 // GPT-4 Modell Deployment
 resource gpt4Deployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
   parent: aiService
-  name: 'gpt-4-mini'
+  name: 'gpt-4o-mini'
   sku: {
     name: 'Standard'
     capacity: 1
