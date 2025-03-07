@@ -1,13 +1,13 @@
 ## Ressourcengruppe anlegen
 
 ```
-az group create --name test5-azure-ai-chat --location westeurope
+az group create --name test6-azure-ai-chat --location westeurope
 ```
 
 ## Service Prinicipal für Infrastruktur Deployment erstellen
 
 ```
-az ad sp create-for-rbac --name "bicep-deployer5" --role "Contributor" --scopes /subscriptions/a79ce721-b590-4c49-8b65-35face434b79/resourceGroups/test5-azure-ai-chat --sdk-auth
+az ad sp create-for-rbac --name "bicep-deployer6" --role "Contributor" --scopes /subscriptions/a79ce721-b590-4c49-8b65-35face434b79/resourceGroups/test6-azure-ai-chat --sdk-auth
 ```
 
 Ergebnis in GitHub Secrets als AZURE_CREDENTIALS hinterlegen
@@ -16,13 +16,13 @@ Dem Prinzipal das zusätzliche Recht geben, dem App Service Zugriffsrechte auf d
 Achtung: assignee ID mit ClientID anpassen
 
 ```
-az role assignment create --assignee 381c85fa-4249-42c9-82ee-e08e46456f57 --role "User Access Administrator" --scope /subscriptions/a79ce721-b590-4c49-8b65-35face434b79/resourceGroups/test5-azure-ai-chat
+az role assignment create --assignee 381c85fa-4249-42c9-82ee-e08e46456f57 --role "User Access Administrator" --scope /subscriptions/a79ce721-b590-4c49-8b65-35face434b79/resourceGroups/test6-azure-ai-chat
 ``` 
 
 ## Service Prinicipal für App Deployment erstellen
 
 ```
-az ad sp create-for-rbac --name "app-deployer5" --role "Website Contributor" --scopes /subscriptions/a79ce721-b590-4c49-8b65-35face434b79/resourceGroups/test5-azure-ai-chat --sdk-auth
+az ad sp create-for-rbac --name "app-deployer6" --role "Website Contributor" --scopes /subscriptions/a79ce721-b590-4c49-8b65-35face434b79/resourceGroups/test6-azure-ai-chat --sdk-auth
 ```
 
 Ergebnis in GitHub Secrets als AZURE_APP_CREDENTIALS hinterlegen
