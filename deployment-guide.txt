@@ -1,7 +1,7 @@
 ## Ressourcengruppe anlegen
 
 ```
-az group create --name test5-azure-ai-chat --location swedencentral
+az group create --name test5-azure-ai-chat --location westeurope
 ```
 
 ## Service Prinicipal für Infrastruktur Deployment erstellen
@@ -13,9 +13,10 @@ az ad sp create-for-rbac --name "bicep-deployer5" --role "Contributor" --scopes 
 Ergebnis in GitHub Secrets als AZURE_CREDENTIALS hinterlegen
 
 Dem Prinzipal das zusätzliche Recht geben, dem App Service Zugriffsrechte auf den Azure OpenAI Service zu gewähren
+Achtung: assignee ID mit ClientID anpassen
 
 ```
-az role assignment create --assignee 0def0389-e79a-4d21-96fa-22079a8c4256 --role "User Access Administrator" --scope /subscriptions/a79ce721-b590-4c49-8b65-35face434b79/resourceGroups/test5-azure-ai-chat
+az role assignment create --assignee 381c85fa-4249-42c9-82ee-e08e46456f57 --role "User Access Administrator" --scope /subscriptions/a79ce721-b590-4c49-8b65-35face434b79/resourceGroups/test5-azure-ai-chat
 ``` 
 
 ## Service Prinicipal für App Deployment erstellen

@@ -116,7 +116,7 @@ resource gpt4Deployment 'Microsoft.CognitiveServices/accounts/deployments@2024-1
   parent: aiService
   name: 'gpt-4o-mini'
   sku: {
-    name: 'Standard'
+    name: 'DataZoneStandard'
     capacity: 1
   }
   properties: {
